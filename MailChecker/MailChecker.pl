@@ -25,25 +25,27 @@ my $pass = &getpassphrase();
 chomp( $pass );
 
 # Neue Instanz des SSL-Objektes anlegen mit $server als übergebenem Parameter.
-my $imap = Net::IMAP::Simple::SSL->new( $server ) 
-	or LOGDIE "Fehler: errstr\n";
+my $imap = Net::IMAP::Simple::SSL->new( $server );
 # Verbindung zum IMAP-Konto herstellen.
 $imap->login( $user => $pass ) 
-	or LOGDIE "keine verbindung: errstr\n";
+	or LOGDIE $imap->errstr;
 # Mails aus Posteingang abrufen und ungelesene zählen.
 my $messages = $imap->search_unseen( 'INBOX' );
+
 # Alter Code. Langsame Methode (ca. 30 sekunden).
 # ungelesene Nachrichten zählen.
 #my $count = 0;
 #	for my $msg (1..$messages) {
 #		$count++ unless $imap->seen($msg);
 #	}
+
 # Verbindung zum IMAP-Konto wieder trennen.
 $imap->quit();
 
 # Ausgabe 
 print( "\nUngelesen: ", $messages, "\n" );
 
+# Subroutine um Passworteingabe mit Sternchen zu überschreiben.
 sub getpassphrase {
 	print "enter passphrase: ";
 	ReadMode 'raw';
