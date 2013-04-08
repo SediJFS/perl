@@ -32,7 +32,7 @@ $imap->login( $user => $pass )
 	or LOGDIE "keine verbindung: errstr\n";
 # Mails aus Posteingang abrufen und ungelesene zählen.
 my $messages = $imap->search_unseen( 'INBOX' );
-#
+# Alter Code. Langsame Methode (ca. 30 sekunden).
 # ungelesene Nachrichten zählen.
 #my $count = 0;
 #	for my $msg (1..$messages) {
