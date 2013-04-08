@@ -27,10 +27,10 @@ chomp( $pass );
 # Neue Instanz des SSL-Objektes anlegen mit $server als übergebenem Parameter.
 
 my $imap = Net::IMAP::Simple::SSL->new( $server ) 
-	or die "Fehler: errstr\n";
+	or LOGDIE "Fehler: errstr\n";
 # Verbindung zum IMAP-Konto herstellen.
 $imap->login( $user => $pass ) 
-	or die "keine verbindung: errstr\n";
+	or LOGDIE "keine verbindung: errstr\n";
 # Mails aus Posteingang abrufen.
 my $messages = $imap->select( 'INBOX' );
 # ungelesene Nachrichten zählen.
