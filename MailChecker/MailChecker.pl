@@ -25,7 +25,6 @@ my $pass = &getpassphrase();
 chomp( $pass );
 
 # Neue Instanz des SSL-Objektes anlegen mit $server als übergebenem Parameter.
-
 my $imap = Net::IMAP::Simple::SSL->new( $server ) 
 	or LOGDIE "Fehler: errstr\n";
 # Verbindung zum IMAP-Konto herstellen.
