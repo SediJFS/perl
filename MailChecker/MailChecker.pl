@@ -42,15 +42,8 @@ my $count = 0;
 $imap->quit();
 
 # Ausgabe 
-print( "Googlemail: \n" );
-	if ( $count == 0 ) {
-		print( "Ungelesen: 0" );
-	}
-	else {
-		print( "Ungelesen: ", $count );
-	}
-	
-	
+print( "\nUngelesen: ", $count, "\n" );
+
 sub getpassphrase {
 	print "enter passphrase: ";
 	ReadMode 'raw';
