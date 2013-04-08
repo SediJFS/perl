@@ -17,7 +17,7 @@ use Term::ReadKey;
 
 my $server = 'imap.gmail.com';
 
-print( "Bitte geben Sie ihren Googlemail Usernamen ein: \n" );
+print( "GMail username: " );
 my $user = <STDIN>;
 chomp( $user );
 # print( "\nBitte geben Sie ihr Googlemail Passwort ein: \n" );
