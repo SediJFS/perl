@@ -30,18 +30,19 @@ my $imap = Net::IMAP::Simple::SSL->new( $server )
 # Verbindung zum IMAP-Konto herstellen.
 $imap->login( $user => $pass ) 
 	or LOGDIE "keine verbindung: errstr\n";
-# Mails aus Posteingang abrufen.
-my $messages = $imap->select( 'INBOX' );
+# Mails aus Posteingang abrufen und ungelesene zählen.
+my $messages = $imap->search_unseen( 'INBOX' );
+#
 # ungelesene Nachrichten zählen.
-my $count = 0;
-	for my $msg (1..$messages) {
-		$count++ unless $imap->seen($msg);
-	}
+#my $count = 0;
+#	for my $msg (1..$messages) {
+#		$count++ unless $imap->seen($msg);
+#	}
 # Verbindung zum IMAP-Konto wieder trennen.
 $imap->quit();
 
 # Ausgabe 
-print( "\nUngelesen: ", $count, "\n" );
+print( "\nUngelesen: ", $messages, "\n" );
 
 sub getpassphrase {
 	print "enter passphrase: ";
