@@ -25,3 +25,9 @@ foreach my $char (split //, $TextString) {
 	$seen{$char}++;
 }
 print "unique chars are: ", sort(keys %seen), "\n";
+
+# einfaches Reverse mit der bereits existierenden Funktion reverse();
+my $reversedString = reverse($TextString);
+my $reversedArray = reverse(@ArrayAusString);
+print "reversed chars in string: ", $reversedString, "\n";
+print "reversed chars in array: ", $reversedArray, "\n";
