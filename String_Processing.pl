@@ -7,6 +7,11 @@
 use strict;
 use warnings;
 
+use Log::Log4perl qw( :easy );
+
+# Initialisieren von Log4perl
+Log::Log4perl->easy_init( $ERROR );
+
 # String zum Weiterverarbeiten und Spielen einlesen
 print("Bitte geben Sie einen Textstring ein: ");
 my $TextString = <STDIN>;
