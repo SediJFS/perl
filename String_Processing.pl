@@ -21,7 +21,7 @@ chomp($TextString);
 my @ArrayAusString = split(//, $TextString);
 
 # Kontrollausgabe
-print("chars in string: @ArrayAusString\n");
+print("chars in string are: @ArrayAusString\n");
 
 # Zum Spaß: Vorkommende Elemente von $TextString in absteigender Reihen-
 # folge ausgeben
