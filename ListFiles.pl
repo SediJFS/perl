@@ -21,41 +21,41 @@ my $verzeichnis = "";
 my @verzeichnisse = ();
 # Inhalt des geöffneten Dateipfads auslesen und in Array schreiben
 foreach $verzeichnis( readdir DIR ) {
-	push( @verzeichnisse, $verzeichnis );
+    push( @verzeichnisse, $verzeichnis );
 }
 # Array sortieren
 @verzeichnisse = sort( @verzeichnisse );
 # Auswahlmenü ausgeben
 print(
-	"\nBitte wählen: ", "\n",
-	"1: alle Dateien anzeigen", "\n",
-	"2: versteckte Dateien ausblenden", "\n\n"
-	);
+    "\nBitte wählen: ", "\n",
+    "1: alle Dateien anzeigen", "\n",
+    "2: versteckte Dateien ausblenden", "\n\n"
+    );
 my $auswahl = <STDIN>;
 chomp( $auswahl );
 # entsprechen Auswahl alle Dateien oder nur die ohne "." ausgeben
 # Auswahl 1: nur Einträge die nicht mit "." beginnen ausgeben
 print( 
-	"\nAusgelesene Dateien (alphabetisch sortiert): ", 
-	"\n---------------------------------------------\n"
-	);
+    "\nAusgelesene Dateien (alphabetisch sortiert): ", 
+    "\n---------------------------------------------\n"
+    );
 if ( $auswahl == '2') {
-	foreach my $eintrag ( @verzeichnisse ) {
-		my $einzelpfad = $eintrag;	
-	
-		if ( $einzelpfad !~ m/^\..*/ ) {
-			print( $einzelpfad, "\n" );
-		}
-		else {
-			next;
-		}
-	}
+    foreach my $eintrag ( @verzeichnisse ) {
+        my $einzelpfad = $eintrag;
+        
+        if ( $einzelpfad !~ m/^\..*/ ) {
+            print( $einzelpfad, "\n" );
+        }
+        else {
+            next;
+        }
+    }
 }
 # Auswahl 2: Alle Einträge ausgeben
 else {
-	foreach my $eintrag ( @verzeichnisse ) {
-		print( $eintrag, "\n" );
-	}		
+    foreach my $eintrag ( @verzeichnisse ) {
+        print( $eintrag, "\n" );
+    }
 }
 # Verzeichnis wieder schließen
 closedir( DIR );
