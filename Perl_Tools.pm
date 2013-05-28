@@ -33,25 +33,25 @@ use Mail::RFC822::Address qw(valid validlist);
 # CSV Subroutine. Liest ein array ein und gibt eine CSV aus.
 sub  csv {
 ###################################################################
-	my $csvEintraege = join (",", @_);
-	return $csvEintraege;
+    my $csvEintraege = join (",", @_);
+    return $csvEintraege;
     }
     
 ###################################################################
 # getDate Subroutine. Liest aus der Datenbank das aktuelle Datum aus und gibt es in deutschem 
 # Datumsformat zurück     
-sub getDate {																							        
+sub getDate {                                                                                                    
 ###################################################################
-	
-	my $dbh = &get_dbHandle();
-	my $datum_iso = $dbh->selectall_arrayref(
-		"SELECT TO_CHAR( CURRENT_DATE, 'YYYY-MM-DD' )"
-	    )->[0]->[0];
+    
+    my $dbh = &get_dbHandle();
+    my $datum_iso = $dbh->selectall_arrayref(
+        "SELECT TO_CHAR( CURRENT_DATE, 'YYYY-MM-DD' )"
+        )->[0]->[0];
 
-	$datum_iso =~ m{(?<Jahr>\d\d\d\d)-(?<Monat>\d\d)-(?<Tag>\d\d)};
-	my $datumDeutsch = sprintf("%02d.%02d.%04d.\n", $+{'Tag'}, $+{'Monat'}, $+{'Jahr'});
+    $datum_iso =~ m{(?<Jahr>\d\d\d\d)-(?<Monat>\d\d)-(?<Tag>\d\d)};
+    my $datumDeutsch = sprintf("%02d.%02d.%04d.\n", $+{'Tag'}, $+{'Monat'}, $+{'Jahr'});
 
-	return $datumDeutsch;
+    return $datumDeutsch;
 
 }
 
@@ -63,13 +63,13 @@ sub arrayEingabe  {
 my @newArray;
 
 my $Eingabe = <STDIN>;
-	@newArray = split(/ /,  $Eingabe);
-	return @newArray;
+    @newArray = split(/ /,  $Eingabe);
+    return @newArray;
 }
 
 ###################################################################
 # db_connect. öffnet die Verbindung zur lokalen  PostgreSQL Datenbank. liefert das DB-Handle zurück
-sub db_connect {                                         													 
+sub db_connect {                                                                                              
 ###################################################################
 use DBI; # sicherheitshalber (nochmal) "vor Ort"
     # mit PostgreSQL verbinden: 
@@ -97,11 +97,11 @@ use DBI; # sicherheitshalber (nochmal) "vor Ort"
 
 ###################################################################
 # get dbHandle. öffnet die Verbindung zur PostgreSQL Datenbank lokal.
-sub db_disconnect {                                         													 
+sub db_disconnect {                                                                                              
 ###################################################################
-	
-	get_dbHandle->disconnect() or LOGDIE get_dbHandle->errstr;
-	return 1;
+    
+    get_dbHandle->disconnect() or LOGDIE get_dbHandle->errstr;
+    return 1;
 }
 
 ###################################################################
@@ -136,21 +136,21 @@ sub email_pruefen {
 ###################################################################
 # passworteingabe mit sternchen ersetzen. benutzt use Term::ReadKey; 
 sub getpassphrase {
-###################################################################	
-	print "enter passphrase: ";
-	ReadMode 'raw';
-	my $passphrase;
-	while (1) {
-		my $key .= (ReadKey 0);
-		if ($key ne "\n") {
-			print '*';
-			$passphrase .= $key
-		} else {
-			last
-		}
-	}
-	ReadMode 'restore';
-	return $passphrase
-}	
+###################################################################    
+    print "enter passphrase: ";
+    ReadMode 'raw';
+    my $passphrase;
+    while (1) {
+        my $key .= (ReadKey 0);
+        if ($key ne "\n") {
+            print '*';
+            $passphrase .= $key
+        } else {
+            last
+        }
+    }
+    ReadMode 'restore';
+    return $passphrase
+}    
 
-1; 	#make perl happy!
+1;     #make perl happy!
