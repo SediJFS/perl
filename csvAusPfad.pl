@@ -17,7 +17,7 @@ my @csvEintraege = ();
 my $verzeichnis = "";
 my @verzeichnisse = ();
 # Pfad zu den Bildern definieren
-my $pfad = "/home/extcjs/Bilder";
+my $pfad = "/home/<USER>/Bilder";
 
 &dateienAuslesen($pfad);
 &csvSchreiben(&csv(@verzeichnisse) );
