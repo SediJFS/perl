@@ -10,35 +10,52 @@ use warnings;
 use Log::Log4perl qw( :easy );
 
 # Initialisieren von Log4perl
-Log::Log4perl->easy_init( $ERROR );
+Log::Log4perl->easy_init( $DEBUG );
 
 # Variablen deklarieren
-my @csvEintraege = ();
+my $daten;
 my $verzeichnis = "";
 my @verzeichnisse = ();
+my @csvEintraege = ();
 # Pfad zu den Bildern definieren
-my $pfad = "/home/<USER>/Bilder";
+my $pfad = "/home/extcjs/Bilder";
+my $datei = "test.csv";
 
-&dateienAuslesen($pfad);
-&csvSchreiben(&csv(@verzeichnisse) );
+&makeCSV($datei);
+
+#Subroutine zum Erstellen der CSV-Datei
+sub makeCSV {
+    # Prüfen ob die Datei schon vorhanden ist:
+    # mit dem Operator '-e' (exists) wird geprüft, ob eine Datei existiert.
+    DEBUG $datei;
+    if (-e @_) {
+        open (DATEI, @_) or die $!;
+    # Wenn Datei vorhanden, Daten aus Verzeichnis auslesen und in Array schreiben
+        opendir( DIR, $pfad ) || die $!;
+        foreach $verzeichnis( readdir DIR ) {
+            push( @verzeichnisse, $verzeichnis );
+        }
+        print DATEI ( &csv(@verzeichnisse) );
+    # Datei wieder schließen
+        close (DATEI);
+    # Array zurückgeben
+        return @verzeichnisse;
+        # DEBUG @verzeichnisse;
+    } 
+    else {
+        open (DATEI, ">test.csv") or die $!;
+        opendir( DIR, $pfad ) || die $!;
+        foreach $verzeichnis( readdir DIR ) {
+            push( @verzeichnisse, $verzeichnis );
+        }
+        print DATEI ( &csv(@verzeichnisse) );
+        close (DATEI);
+        # DEBUG @verzeichnisse;
+    }
+}
 
 # Subroutine um eine csv-Liste zu erstellen
 sub csv {
     my @csvEintraege = join (",", @_);
     return @csvEintraege;
-}
-# Subroutine um Dateien aus Pfad auszulesen
-sub dateienAuslesen {
-    opendir( DIR, $pfad ) || die $!;
-
-    foreach $verzeichnis( readdir DIR ) {
-        push( @verzeichnisse, $verzeichnis );
-    }
-    return @verzeichnisse;
-}
-# Subroutine um den Inhalt des erstellten Arrays in eine CSV zu schreiben.
-sub csvSchreiben {
-    open (WRITE, ">testwrite.csv") or die $!;
-    print WRITE @_;
-    close (WRITE);
 }
