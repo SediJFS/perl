@@ -18,7 +18,7 @@ my $verzeichnis = "";
 my @verzeichnisse = ();
 my @csvEintraege = ();
 # Pfad zu den Bildern definieren
-my $pfad = "/home/<USER>/Bilder";
+my $pfad = "/home/extcjs/Bilder";
 my $datei = "test.csv";
 
 &makeCSV($datei);
@@ -33,7 +33,13 @@ sub makeCSV {
     # Wenn Datei vorhanden, Daten aus Verzeichnis auslesen und in Array schreiben
         opendir( DIR, $pfad ) || die $!;
         foreach $verzeichnis( readdir DIR ) {
-            push( @verzeichnisse, $verzeichnis );
+    # Prüfen, ob die aktuell für das Array gelesene Datei mit . oder .. beginnt
+            if ( $verzeichnis !~ m/^\..*/ ) {
+                push( @verzeichnisse, $verzeichnis );
+            }
+            else {
+                next;
+            }
         }
         print DATEI ( &csv(@verzeichnisse) );
     # Datei wieder schließen
@@ -41,12 +47,17 @@ sub makeCSV {
     # Array zurückgeben
         return @verzeichnisse;
         # DEBUG @verzeichnisse;
-    } 
+    }
     else {
         open (DATEI, ">test.csv") or die $!;
         opendir( DIR, $pfad ) || die $!;
         foreach $verzeichnis( readdir DIR ) {
-            push( @verzeichnisse, $verzeichnis );
+            if ( $verzeichnis !~ m/^\..*/ ) {
+                push( @verzeichnisse, $verzeichnis );
+            }
+            else {
+                next;
+            }
         }
         print DATEI ( &csv(@verzeichnisse) );
         close (DATEI);
@@ -56,6 +67,6 @@ sub makeCSV {
 
 # Subroutine um eine csv-Liste zu erstellen
 sub csv {
-    my @csvEintraege = join (",", @_);
+    @csvEintraege = join (",", @_);
     return @csvEintraege;
 }
