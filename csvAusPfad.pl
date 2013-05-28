@@ -18,8 +18,8 @@ my $verzeichnis = "";
 my @verzeichnisse = ();
 my @csvEintraege = ();
 # Pfad zu den Bildern definieren
-my $pfad = "/home/extcjs/Bilder";
-my $datei = "test.csv";
+my $pfad = "<Dateipfad>";
+my $datei = "<Dateiname>";
 
 &makeCSV($datei);
 
@@ -27,7 +27,7 @@ my $datei = "test.csv";
 sub makeCSV {
     # Prüfen ob die Datei schon vorhanden ist:
     # mit dem Operator '-e' (exists) wird geprüft, ob eine Datei existiert.
-    DEBUG $datei;
+    # DEBUG $datei;
     if (-e @_) {
         open (DATEI, @_) or die $!;
     # Wenn Datei vorhanden, Daten aus Verzeichnis auslesen und in Array schreiben
