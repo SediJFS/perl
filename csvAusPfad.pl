@@ -18,7 +18,7 @@ my $verzeichnis = "";
 my @verzeichnisse = ();
 my @csvEintraege = ();
 # Pfad zu den Bildern definieren
-my $pfad = "/home/extcjs/Bilder";
+my $pfad = "/home/<USER>/Bilder";
 my $datei = "test.csv";
 
 &makeCSV($datei);
