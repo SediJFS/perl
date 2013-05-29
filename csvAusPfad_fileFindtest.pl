@@ -19,7 +19,7 @@ my $num_args = $#ARGV + 1;
 my $was = $ARGV[0];
 my $nr = $ARGV[1];
 my $unterverz = $ARGV[2];
-my $prefix = "/home/extcjs/";   # später für EWV '/i/fotos/'
+my $prefix = "/home/josef/";
 # prüfen ob, und wieviele Argumente angegeben wurden und entsprechend den daraus
 # erstellten Pfad anpassen.
 if ($num_args == 1) {
