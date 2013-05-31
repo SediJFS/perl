@@ -12,9 +12,9 @@ use Log::Log4perl qw( :easy );
 use Net::FTPSSL;
 
 # Initialisation of Log4perl.
-Log::Log4perl->easy_init( $DEBUG )
+Log::Log4perl->easy_init( $DEBUG );
 
-# Ask for Connectiondetails (WARNING! Password is displayed in console!!!)
+# Ask for Connection details WARNING! Password is displayed in console!!!
 print "Host: ";
 my $host = <STDIN>;
 chomp($host);
@@ -28,6 +28,7 @@ print "Password: ";
 my $password = <STDIN>;
 chomp($password);
 
+# Open FTP-connection with given details
 my $ftps = Net::FTPSSL->new($host,
                         Port => $port,
                         Encryption => 'E',
@@ -37,9 +38,10 @@ my $ftps = Net::FTPSSL->new($host,
 $ftps->login("$user", "$password")
     or die "Cannot login ", $ftps->last_message;
 
+# list files located at ftp root and write them into an array
 my @files = $ftps->list("/")
     or die "Cannot list directory ", $ftps->last_message;
-DEBUG @files;
+# DEBUG @files;
 
 # Open and write to Filehandle (output.txt)
 open(FH, ">", "output.txt")
