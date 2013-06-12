@@ -12,13 +12,16 @@ use warnings;
 use Net::IMAP::Simple;
 use Net::IMAP::Simple::SSL;
 use Term::ReadKey;
+use Email::Simple;
 
+# Zugangsdaten abfragen
 my $server = 'imap.gmail.com';
+# Benutzername
 print( "Bitte geben Sie Ihre Googlemail-Adresse ein: \n" );
-my $user = &getpassphrase;
+my $user = <STDIN>;
 chomp( $user );
-print( "\nBitte geben Sie ihr Googlemail Passwort ein: \n" );
-my $pass = <STDIN>;
+# Passwort
+my $pass = &getpassphrase;
 chomp( $pass );
 
 # Neue Instanz des SSL-Objektes anlegen mit $server als übergebenem Parameter.
@@ -27,16 +30,30 @@ my $imap = Net::IMAP::Simple::SSL->new( $server );
 $imap->login( $user => $pass );
 # Mails aus Posteingang abrufen und ungelesene zählen.
 my $messages = $imap->search_unseen( 'INBOX' );
+# Mails in Posteingang abrufen
+my $nm = $imap->select('INBOX');
+
+# Ausgabe
+# Anzahl ungelesener Nachrichten
+print( "\nUngelesen: ", $messages, "\n" );
+# Die letzten 3 Absender ausgeben
+print( "--------------\n" );
+print( "Die letzten 3 Mails waren von: \n" );
+for ( my $i = 1 ; $i <= $nm ; $i++ ) {
+    if( $i == $nm || $i == $nm - 1 || $i == $nm - 2) {
+        my $es = Email::Simple->new( join '', @{ $imap->top($i) } );
+        print( $es->header('From'), "\n" );
+    } else {
+        next;
+    }
+}
 
 # Verbindung zum IMAP-Konto wieder trennen.
 $imap->quit();
 
-# Ausgabe 
-print( "\nUngelesen: ", $messages, "\n" );
-
 # Subroutine um Passworteingabe mit Sternchen zu überschreiben.
 sub getpassphrase {
-	print "enter passphrase: ";
+	print "\nBitte geben Sie ihr Googlemail Passwort ein: \n";
 	ReadMode 'raw';
 	my $passphrase;
 	while (1) {

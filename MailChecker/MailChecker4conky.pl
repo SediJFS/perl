@@ -29,8 +29,24 @@ my $imap = Net::IMAP::Simple::SSL->new( $server );
 $imap->login( $user => $pass );
 # Mails aus Posteingang abrufen und ungelesene zählen.
 my $messages = $imap->search_unseen( 'INBOX' );
+
+# Mails in Posteingang abrufen
+my $nm = $imap->select('INBOX');
+
+# Ausgabe
+# Anzahl ungelesener Nachrichten
+print( "\nUngelesen: ", $messages, "\n" );
+# Die letzten 3 Absender ausgeben
+print( "--------------\n" );
+print( "Die letzten 3 Mails waren von: \n" );
+for ( my $i = 1 ; $i <= $nm ; $i++ ) {
+    if( $i == $nm || $i == $nm - 1 || $i == $nm - 2) {
+        my $es = Email::Simple->new( join '', @{ $imap->top($i) } );
+        print( $es->header('From'), "\n" );
+    } else {
+        next;
+    }
+}
+
 # Verbindung zum IMAP-Konto wieder trennen.
 $imap->quit();
-
-# Ausgabe 
-print( "\nUngelesen: ", $messages, "\n" );
