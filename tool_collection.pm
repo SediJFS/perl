@@ -23,7 +23,7 @@ use Exporter;
     SuperDir
     SuperDirUnix
 /;
-
+@EXPORT = @EXPORT_OK
 
 #####################################################################
 #### Aus FG_tools.pm von Frank Gard #################################
