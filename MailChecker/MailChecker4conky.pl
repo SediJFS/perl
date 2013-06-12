@@ -14,6 +14,7 @@ use warnings;
 use Net::IMAP::Simple;
 use Net::IMAP::Simple::SSL;
 use Term::ReadKey;
+use Email::Simple;
 
 #Zugangsdaten hier eintragen
 # Serveradresse
