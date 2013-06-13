@@ -282,3 +282,6 @@ sub SuperDirUnix {
     #
     return $path;
 }
+
+#Make Perl happy :-)
+ 1;
