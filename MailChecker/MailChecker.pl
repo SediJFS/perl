@@ -38,12 +38,13 @@ my $nm = $imap->select('INBOX');
 print( "\nUngelesen: ", $messages, "\n" );
 # Die letzten 3 Absender ausgeben
 print( "--------------\n" );
-print( "Die letzten 3 Mails waren von: \n" );
+print( "letzte 5: \n" );
 my @mails;
 for ( my $i = 1 ; $i <= $nm ; $i++ ) {
-    if( $i == $nm || $i == $nm - 1 || $i == $nm - 2) {
+    if( $i == $nm || $i == $nm - 1 || $i == $nm - 2 || $i == $nm - 3 || $i == $nm - 4) {
         my $es = Email::Simple->new( join '', @{ $imap->top($i) } );
-        push( @mails, $es->header('From'), "\n" );
+        push( @mails, $es->header('From'), "\n--> " );
+        push( @mails, $es->header('Date'), "\n" );
     } else {
         next;
     }
