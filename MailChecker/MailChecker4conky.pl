@@ -39,7 +39,7 @@ my $nm = $imap->select('INBOX');
 print( "\nUngelesen: ", $messages, "\n" );
 # Die letzten 3 Absender ausgeben
 print( "--------------\n" );
-print( "Die letzten 3 Mails waren von: \n" );
+print( "letzte 5: \n" );
 my @mails;
 for ( my $i = 1 ; $i <= $nm ; $i++ ) {
     if( $i == $nm || $i == $nm - 1 || $i == $nm - 2 || $i == $nm - 3 || $i == $nm - 4) {
