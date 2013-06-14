@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 use strict;
-use warnings;
+# use warnings;
 
 # Klassendefinition (abstrakte Klasse)
 { package Animal;
@@ -96,6 +96,11 @@ sub feed_a_cow_named {
 { package Horse;
     our @ISA = qw( Animal );
     sub sound { "neigh" }
+    sub DESTROY {
+        my $self = shift;
+        $self->SUPER::DESTROY;
+        print "[", $self->name, " has gone off to the glue factory.]\n";
+    }
 }
 { package Sheep;
     our @ISA = qw( Animal );
@@ -108,9 +113,6 @@ sub feed_a_cow_named {
     sub default_color { "black-and-white" }
 }
 
-my $barn = Barn2->new;
-$barn->add( Cow->named( "Bessie" ) );
-$barn->add( Cow->named( "Gwen" ) );
-print "Burn the barn:\n";
-$barn = undef;
-print "End of program.\n";
+my @tv_horses = map Horse->named( $_ ), ( "Fury", "Mr. Ed" );
+$_->eat( "an apple" ) for @tv_horses;
+print "End of Programm\n";
