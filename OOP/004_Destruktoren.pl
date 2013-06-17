@@ -7,10 +7,11 @@ use strict;
 { package Animal;
     use Carp qw( croak );
     use File::Temp qw( tempfile );
+    use WeakRef qw( weaken );
     our %REGISTRY;
     # Konstruktoren
     sub named {
-        my $class = shift;
+        ref(my $class = shift) and croak "class only";
         my $name = shift;
         my $self = { Name => $name, Color => $class->default_color };
         my ( $fh, $filename ) = tempfile();
@@ -18,6 +19,8 @@ use strict;
         $self->{temp_filenme} = $filename;
         bless $self, $class;
         $REGISTRY{ $self } = $self;
+        weaken( $REGISTRY{ $self } );
+        $self;
     }
     sub registered {
         return map { "a ".ref($_)." named ".$_->name } values %REGISTRY;
@@ -32,6 +35,7 @@ use strict;
         close $fh;
         unlink $self->{temp_filename};
         print "[",$self->name, " has died.]\n";
+        delete $REGISTRY{ $self };
     }
     sub speak {
         my $eingabe = shift;
@@ -143,9 +147,13 @@ sub feed_a_cow_named {
 #~ $racer->showed;
 #~ $racer->lost;
 #~ print $racer->name, " has standings of: ", $racer->standings, ".\n";
-
-my @cows = map Cow->named($_), qw(Bessie Gwen);
 my @horses = map Horse->named($_), ("Trigger", "Mr. Ed");
+print "alive before block:\n", map(" $_\n", Animal->registered);
+{
+my @cows = map Cow->named($_), qw(Bessie Gwen);
 my @racehorses = RaceHorse->named("Billy Boy");
-print "We've seen:\n", map(" $_\n", Animal->registered);
+print "alive inside block:\n", map(" $_\n", Animal->registered);
+}
+print "alive after block:\n", map(" $_\n", Animal->registered);
 print "End of program.\n";
+
