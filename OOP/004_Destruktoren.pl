@@ -112,7 +112,28 @@ sub feed_a_cow_named {
     sub sound { "moooh" }
     sub default_color { "black-and-white" }
 }
+{ package RaceHorse;
+    our @ISA = qw( Horse );
+    sub named {
+        my $self = shift->SUPER::named(@_);
+        $self->{$_} = 0 for qw( wins places shows losses );
+        $self;
+    }
+    sub won { shift->{ wins } ++; }
+    sub placed { shift->{ places } ++; }
+    sub showed { shift->{ shows } ++; }
+    sub lost { shift->{ losses } ++; }
+    sub standings {
+        my $self = shift;
+        join ", ", map "$self->{ $_ } $_", qw( wins places shows losses );
+    }
+}
 
-my @tv_horses = map Horse->named( $_ ), ( "Fury", "Mr. Ed" );
-$_->eat( "an apple" ) for @tv_horses;
-print "End of Programm\n";
+my $racer = RaceHorse->named( "Billy Boy" );
+$racer->won;
+$racer->won;
+$racer->won;
+$racer->showed;
+$racer->lost;
+print $racer->name, " has standings of: ", $racer->standings, ".\n";
+
