@@ -7,15 +7,20 @@ use strict;
 { package Animal;
     use Carp qw( croak );
     use File::Temp qw( tempfile );
+    our %REGISTRY;
     # Konstruktoren
     sub named {
-        ref( my $class = shift ) and croak "class name needed";
+        my $class = shift;
         my $name = shift;
         my $self = { Name => $name, Color => $class->default_color };
         my ( $fh, $filename ) = tempfile();
         $self->{temp_fh} = $fh;
         $self->{temp_filenme} = $filename;
         bless $self, $class;
+        $REGISTRY{ $self } = $self;
+    }
+    sub registered {
+        return map { "a ".ref($_)." named ".$_->name } values %REGISTRY;
     }
     # virtuelle Methoden (Methoden, die in jedem Fall überschrieben werden sollen
     sub default_color { "brown" }
@@ -59,6 +64,7 @@ use strict;
         $self->{ Color } = shift;
     }
 }
+
 # Basisklasse für Scheune (Barn)
 { package Barn;
     sub new { bless [], shift }
@@ -119,6 +125,7 @@ sub feed_a_cow_named {
         $self->{$_} = 0 for qw( wins places shows losses );
         $self;
     }
+    # Abgeleitete Klasse um Klassenspezifische Methoden erweitern.
     sub won { shift->{ wins } ++; }
     sub placed { shift->{ places } ++; }
     sub showed { shift->{ shows } ++; }
@@ -129,11 +136,16 @@ sub feed_a_cow_named {
     }
 }
 
-my $racer = RaceHorse->named( "Billy Boy" );
-$racer->won;
-$racer->won;
-$racer->won;
-$racer->showed;
-$racer->lost;
-print $racer->name, " has standings of: ", $racer->standings, ".\n";
+#~ my $racer = RaceHorse->named( "Billy Boy" );
+#~ $racer->won;
+#~ $racer->won;
+#~ $racer->won;
+#~ $racer->showed;
+#~ $racer->lost;
+#~ print $racer->name, " has standings of: ", $racer->standings, ".\n";
 
+my @cows = map Cow->named($_), qw(Bessie Gwen);
+my @horses = map Horse->named($_), ("Trigger", "Mr. Ed");
+my @racehorses = RaceHorse->named("Billy Boy");
+print "We've seen:\n", map(" $_\n", Animal->registered);
+print "End of program.\n";
