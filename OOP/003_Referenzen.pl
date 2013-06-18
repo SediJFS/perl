@@ -16,12 +16,17 @@ sub check_required_items {
     my $who = shift;
     my $items = shift;
     my @required = qw(preserver sunscreen water_bottle jacket);
+    my @missing = ();
     for my $item (@required) {
         # Dereferenzierung der Referenz auf das ursprüngliche Array
         unless (grep $item eq $_, @$items) { # nicht in der Liste gefunden?
-                print "$who is missing $item.\n";
+                push @missing, $item;
             }
         }
+    if (@missing) {
+        print "Adding @missing to @$items for $who.\n";
+        push @$items, @missing;
+    }
 }
 # Arrays definieren
 my @skipper = qw(blue_shirt hat jacket preserver sunscreen);
