@@ -52,3 +52,17 @@ require "drop_anchor.pl";
 require "navigate.pl";
 # Bei syntaxfehlern in der Datei löst 'require' automatisch ein 'die' aus,
 # weshalb die beiden Zeilen 'die $@ if $@' überflüssig werden.
+
+# Zum Auslesen der aktuellen Perl-Pfadvariablen:
+# Unix-Kommandozeile:
+# perl -le 'print for @INC'
+
+# um die Pfadvariable zu erweitern (Am Anfang der Liste mit unshift hinzufügen):
+unshift @INC, "/Pfad/zur/perl-lib";
+
+# Um Namensprobleme zu vermeiden besser mit Packages arbeiten. Diese werden in
+# der jeweiligen pl definiert. Also steht in 'Navigation.pl':
+package Navigation;
+# Dadurch werden die Subroutinen aus Navigation nur noch mit vorangestelltem
+# Packagenamen aufgerufen werden können:
+Navigation::turn_towards_heading();
