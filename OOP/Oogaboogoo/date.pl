@@ -11,14 +11,14 @@ my @mon = qw( dit pod bod rod sip wax lin sen kun fiz nap dep );
 # Subroutine zum Umsetzen einer Zahl in einen Wochentag:
 sub day {
     my $num = shift @_;
-    die "$num ist keine Wochentagsnummer";
+    die "$num ist keine Wochentagsnummer"
         unless $num >= 0 and $num <= 6;
     $day[$num];
 }
 # SUbroutine zum Umsetzen einer Zahl in einen Monat:
 sub mon {
     my $num = shift @_;
-    die "$num ist keine Monatsnummer";
+    die "$num ist keine Monatsnummer"
         unless $num >= 0 and $num <= 11;
     $mon[$num];
 }
