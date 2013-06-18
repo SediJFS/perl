@@ -66,3 +66,31 @@ package Navigation;
 # Dadurch werden die Subroutinen aus Navigation nur noch mit vorangestelltem
 # Packagenamen aufgerufen werden können:
 Navigation::turn_towards_heading();
+
+# Beispiel für Geltungsbereiche von Packages in Perl-Librarys
+package Navigation;
+{
+    # Anfang des Blocks mit eigenem Geltungsbereich
+    package main; # ab hier sind wir im Package main
+    sub turn_towards_heading { # main::turn_towards_heading
+        .. hier steht etwas Code ..
+    }
+}
+# Ende des Blocks mit eigenem Geltungsbereich
+# zurück zum Package Navigation
+sub turn_towards_port { # Navigation::turn_towards_port
+    .. mehr Code hier ..
+}
+
+# Lexikalische Variablen im Zusammenhang mit Packages:
+package Navigation;
+@homeport = (21.1, -157.525);
+sub get_me_home {
+    my @homeport;
+    .. @homeport ..
+    .. @Navigation::homeport ..
+    # bezieht sich auf die lexikalische Variable
+    # bezieht sich auf die Package-Variable
+}
+.. @homeport ..
+# bezieht sich auf die Package-Variable (da außerhalb des
