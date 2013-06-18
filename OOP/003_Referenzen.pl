@@ -49,6 +49,11 @@ for my $person (@all_with_names) {
     my $provisions_reference = $$person[1];
     check_required_items($who, $provisions_reference);
 }
+# vereinfachte Schreibweise:
+for my $person (@all_with_names) {
+    check_required_items(@$person);
+}
+
 # alter Aufruf vor mehrdimensionaler Arrayreferenz
 #~ check_required_items("professor", \@professor);
 #~ check_required_items("skipper", \@skipper);
