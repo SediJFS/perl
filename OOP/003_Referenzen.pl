@@ -18,7 +18,7 @@ sub check_required_items {
     my @required = qw(preserver sunscreen water_bottle jacket);
     for my $item (@required) {
         # Dereferenzierung der Referenz auf das ursprüngliche Array
-        unless (grep $item eq $_, @{ $items }) { # nicht in der Liste gefunden?
+        unless (grep $item eq $_, @$items) { # nicht in der Liste gefunden?
                 print "$who is missing $item.\n";
             }
         }
