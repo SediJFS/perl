@@ -38,3 +38,17 @@ sub turn_towards_heading {
     }
     print "by turning $direction $turn degrees.\n";
 }
+
+# Auslagern von SUbroutinen in andere .pl-Dateien:
+# die Subroutinen können z.B. mit 'do' eingebunden werden
+do "drop_anchor.pl";
+die $@ if $@;
+do "navigate.pl";
+die $@ if $@;
+
+# Wenn 'navigate.pl' jetzt aber selbst auch ein 'do "drop_anchor.pl"' enthält,
+# würde die Datei zweimal geladen. Um das zu verhindern:
+require "drop_anchor.pl";
+require "navigate.pl";
+# Bei syntaxfehlern in der Datei löst 'require' automatisch ein 'die' aus,
+# weshalb die beiden Zeilen 'die $@ if $@' überflüssig werden.
