@@ -140,13 +140,6 @@ sub feed_a_cow_named {
     }
 }
 
-#~ my $racer = RaceHorse->named( "Billy Boy" );
-#~ $racer->won;
-#~ $racer->won;
-#~ $racer->won;
-#~ $racer->showed;
-#~ $racer->lost;
-#~ print $racer->name, " has standings of: ", $racer->standings, ".\n";
 my @horses = map Horse->named($_), ("Trigger", "Mr. Ed");
 print "alive before block:\n", map(" $_\n", Animal->registered);
 {

@@ -149,13 +149,6 @@ sub feed_a_cow_named {
     }
 }
 
-#~ my $racer = RaceHorse->named( "Billy Boy" );
-#~ $racer->won;
-#~ $racer->won;
-#~ $racer->won;
-#~ $racer->showed;
-#~ $racer->lost;
-#~ print $racer->name, " has standings of: ", $racer->standings, ".\n";
 my $runner = RaceHorse->named("Billy Boy");
 $runner->won;
 $runner->won;
@@ -169,7 +162,6 @@ my @horses = map Horse->named($_), ("Trigger", "Mr. Ed");
 print "alive before block:\n", map(" $_\n", Animal->registered);
 {
 my @cows = map Cow->named($_), qw(Bessie Gwen);
-my @racehorses = RaceHorse->named("Billy Boy");
 print "alive inside block:\n", map(" $_\n", Animal->registered);
 }
 print "alive after block:\n", map(" $_\n", Animal->registered);
