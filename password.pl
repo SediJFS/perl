@@ -18,3 +18,18 @@ my @chars = ( "A".."Z", "a".."z", 0..9, qw( ! @ $ % & ) );
 # vorgegebenen Zeichenpool generieren und ausgeben.
 my $password = join("", @chars[ map { rand @chars } ( 1..8 ) ] );
 print($password, "\n");
+
+=pod
+
+=head1 password
+
+password gibt ein zufaelliges, 8 stelliges Passwort aus dem Zeichenpool
+
+"A".."Z"
+"a".."z"
+0..9
+! @ $ % &
+
+zurueck.
+
+=cut

@@ -150,6 +150,7 @@ sub feed_a_cow_named {
 }
 
 my $runner = RaceHorse->named("Billy Boy");
+print $runner->name, " has standings ", $runner->standings, ".\n";
 $runner->won;
 $runner->won;
 $runner->won;
