@@ -55,18 +55,18 @@ $imap->quit();
 
 # Subroutine um Passworteingabe mit Sternchen zu überschreiben.
 sub getpassphrase {
-	print "\nBitte geben Sie ihr Googlemail Passwort ein: \n";
-	ReadMode 'raw';
-	my $passphrase;
-	while (1) {
-		my $key .= (ReadKey 0);
-		if ($key ne "\n") {
-			print '*';
-			$passphrase .= $key
-		} else {
-			last
-		}
-	}
-	ReadMode 'restore';
-	return $passphrase
-}	
+    print "\nBitte geben Sie ihr Googlemail Passwort ein: \n";
+    ReadMode 'raw';
+    my $passphrase;
+    while (1) {
+        my $key .= (ReadKey 0);
+        if ($key ne "\n") {
+            print '*';
+            $passphrase .= $key
+        } else {
+            last
+        }
+    }
+    ReadMode 'restore';
+    return $passphrase
+}    
