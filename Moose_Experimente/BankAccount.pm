@@ -2,6 +2,7 @@
 
 #Basisklasse 'BankAccount' erstellen
 package BankAccount;
+use Carp;
 use Moose;
 # Attribute der Klasse festlegen
 has 'balance' => ( isa => 'Int', is => 'rw', default => 0 );
@@ -15,7 +16,7 @@ sub withdraw {
     my ( $self, $amount ) = @_;
     my $current_balance = $self->balance();
     ( $current_balance >= $amount )
-        || confess "Account overdrawn";
+        || print "Account overdrawn ";
     $self->balance( $current_balance - $amount );
 }
 
@@ -50,4 +51,6 @@ print $konto->current_balance, "\n";
 $konto->withdraw(3000);
 print $konto->current_balance, "\n";
 $konto->withdraw(2500);
+print $konto->current_balance, "\n";
+$konto->deposit(500);
 print $konto->current_balance, "\n";
