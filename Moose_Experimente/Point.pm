@@ -20,7 +20,9 @@ package Point3D;
     extends 'Point';
 
     has 'z' => (isa => 'Int', is => 'rw', required => 1);
-
+# der 'after'-modifier lässt die ergänzung zur Subroutine NACH der eigentlichen
+# Subroutine ablaufen. Sie wird also praktisch ans Ende des entsprechenden sub
+# angehängt.
     after 'clear' => sub {
         my $self = shift;
         $self->z(0);
