@@ -1,4 +1,4 @@
-!#/usr/bn/env perl
+#!/usr/bn/env perl
 
 package password;
 
