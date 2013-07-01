@@ -12,7 +12,8 @@ sub not_equal_to {
 
 package Comparable;
 use Moose::Role;
-
+# Das Package 'Comparable' übernimmt mit 'with' die Rolle von 'Eq'. Dadurch
+# steht 'Comparable' auch die Subroutine 'not_equal_to' zur Verfügung.
 with 'Eq';
 
 requires 'compare';
@@ -44,12 +45,15 @@ sub less_than_or_equal_to {
 
 package Printable;
 use Moose::Role;
-
+# mit requires 'to_string' wird festgelegt, dass 'Printable' diese Subroutine
+# zum Arbeiten beötigt. Da US::Currency aber die 'with' Zeile mit 'Printable'
+# enthält, steht diese Methode über 'US::Currency' zur Verfügung.
 requires 'to_string';
 
 package US::Currency;
 use Moose;
-
+# mit 'with' wird die Rolle von 'Comparable' übernommen und somit alle seine
+# Subroutinen.
 with 'Comparable', 'Printable';
 
 has 'amount' => ( is => 'rw', isa => 'Num', default => 0 );
