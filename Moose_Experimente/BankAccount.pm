@@ -46,6 +46,7 @@ before 'withdraw' => sub {
 
 # Objekte anlegen und was damit machen.
 my $konto = BankAccount->new();
+print $konto->current_balance, "\n";
 $konto->deposit(5000);
 print $konto->current_balance, "\n";
 $konto->withdraw(3000);
