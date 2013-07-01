@@ -32,6 +32,7 @@ DEBUG $path;
 my $io = My::IO->new( file => $path );
 print "::::::::::::::\n";
 print $io->file, "\n";
-print "::::::::::::::\n";
+print ":::BEGIN::::::\n";
 $io->open;
 print $io->getlines;
+print ":::DONE:::::::\n";
