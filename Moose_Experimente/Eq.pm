@@ -41,3 +41,25 @@ sub less_than_or_equal_to {
     my ( $self, $other ) = @_;
     $self->less_than($other) || $self->equal_to($other);
 }
+
+package Printable;
+use Moose::Role;
+
+requires 'to_string';
+
+package US::Currency;
+use Moose;
+
+with 'Comparable', 'Printable';
+
+has 'amount' => ( is => 'rw', isa => 'Num', default => 0 );
+
+sub compare {
+    my ( $self, $other ) = @_;
+    $self->amont <=> $other->amount;
+}
+
+sub to_string {
+    my $self = shift;
+    sprintf '$%0.2f USD' => $self->amount;
+}
