@@ -47,3 +47,9 @@ sub dump {
     }
     return $dump;
 }
+
+package main;
+
+my $app = MyApp::Website->new( url => "http://google.com", name => "Google" );
+my $label = $app->meta->get_attribute('url')->label();
+print $app->name, "\n", $label, " => ", $app->url, "\n";
