@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+# weitere Infos unter: http://goo.gl/Q7NXI
+
 package MyApp::Meta::Attribute::Trait::Labeled;
 use Moose::Role;
 Moose::Util::meta_attribute_alias('Labeled');
