@@ -20,7 +20,15 @@ my $muecke = Dog->new( name => 'Muecke', sound => 'Fiepfiep', attackPower => 15 
 print $muecke->speak() . "\n";
 
 print "Lassie vs. Muecke\n", "...Fight!!!\n";
-print $doggy->fight($muecke) . " wins\n";
+print "Winner: " . $doggy->fight($muecke) . "\n";
+
+$doggy->bite;
+print "Lassie vs. Muecke while Lassie bites\n", "...Fight!!!\n";
+print "Winner: " . $doggy->fight($muecke) . "\n";
+
+$muecke->bite;
+print "Lassie vs. Muecke while Muecke bites back\n", "...Fight!!!\n";
+print "Winner: " . $doggy->fight($muecke) . "\n";
 
 #99 little bugs in the code
 #99 little bugs in the code

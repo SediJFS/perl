@@ -17,7 +17,9 @@ sub fight {
     my $selfAttack = $self->{attackPower};
     if ( $enemyAttack > $selfAttack ) {
         return $_[0]->{name};
-    } else {
+    } elsif ( $enemyAttack == $selfAttack ) {
+        return 'draw';
+    }else {
         return $self;
     }
 }
