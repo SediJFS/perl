@@ -3,10 +3,10 @@ use strict;
 
 use Moose;
 
-has 'Name'          => ( is => 'rw', isa => 'Str', required => 'true' );
-has 'AttackPower'   => ( is => 'rw', isa => 'Int', default => 5 );
+has 'name'          => ( is => 'rw', isa => 'Str', required => 1 );
+has 'attackPower'   => ( is => 'rw', isa => 'Int', default => 5 );
 
-sub Fight {
+sub fight {
     my $self = shift( @_ );
     my $animal1 = $_[0];
     my $animal2 = $_[1];
@@ -20,6 +20,13 @@ sub Fight {
         $winner = $animal2->Name;
     }
     return $winner;
+}
+
+sub speak {
+    my $self = shift;
+    my $name = $self->{name};
+    my $sound = $self->{sound};
+    return $name . " says " . $sound;
 }
 
 1;
