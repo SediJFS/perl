@@ -3,23 +3,23 @@ use strict;
 
 use Moose;
 
+# Bequemes Loggen:
+use Log::Log4perl qw( :easy );
+Log::Log4perl->easy_init( $DEBUG );
+
 has 'name'          => ( is => 'rw', isa => 'Str', required => 1 );
 has 'attackPower'   => ( is => 'rw', isa => 'Int', default => 5 );
 
 sub fight {
     my $self = shift( @_ );
-    my $animal1 = $_[0];
-    my $animal2 = $_[1];
-    my $winner = "";
-    if ( $animal1->AttackPower > $animal2->AttackPower ) {
-        $winner = $animal1->Name;
-    } elsif ( $animal1->AttackPower == $animal2->AttackPower ){
-        return "draw";
-        exit;
+    
+    my $enemyAttack = $_[0]->{attackPower};
+    my $selfAttack = $self->{attackPower};
+    if ( $enemyAttack > $selfAttack ) {
+        return $_[0]->{name};
     } else {
-        $winner = $animal2->Name;
+        return $self;
     }
-    return $winner;
 }
 
 sub speak {
