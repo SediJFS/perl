@@ -7,11 +7,13 @@ use Moose;
 use Log::Log4perl qw( :easy );
 Log::Log4perl->easy_init( $DEBUG );
 
+# Klassenattribute
 has 'name'          => ( is => 'rw', isa => 'Str', required => 1 );
 has 'attackPower'   => ( is => 'rw', isa => 'Int', default => 5 );
-has 'state'         => ( is => 'rw', isa => 'Bool', default => 0 );
+has 'fainted'         => ( is => 'rw', isa => 'Bool', default => 0 );
 has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0 );
 
+# Klassenmethoden
 sub fight {
     my $self = shift( @_ );
     my $fainted = 0;
@@ -22,12 +24,12 @@ sub fight {
         my $enemyAttack = $_[0]->{attackPower};
         my $selfAttack = $self->{attackPower};
         if ( $enemyAttack > $selfAttack ) {
-            $self->{state} = 1;
+            $self->{fainted} = 1;
             return $_[0]->{name};
         } elsif ( $enemyAttack == $selfAttack ) {
             return 'draw';
         }else {
-            $_[0]->{state} = 1;
+            $_[0]->{fainted} = 1;
             $self->{lastWin} = 1;
             return $self;
         }
@@ -36,8 +38,7 @@ sub fight {
 
 sub faint {
     my $self = shift;
-    # my $fainted = 0;
-    if ( $self->{state} == 0 ) {
+    if ( $self->{fainted} == 0 ) {
         return 0;
     } else {
         return 1;
