@@ -19,9 +19,9 @@ has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0                
 sub fight {
     my $self = shift( @_ );
     my $enemy = $_[0];
-    if ( $self->{fainted} == 1 ) {
+    if ( $self->{energy} <= 0 ) {
         return $self->{name} . ' fainted';
-    } elsif ( $enemy->{fainted} == 1 ) {
+    } elsif ( $enemy->{energy} <= 0 ) {
         return $enemy->{name} . ' fainted';
     } else {
         my $enemyAttack = $_[0]->{attackPower};

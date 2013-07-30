@@ -13,4 +13,11 @@ sub bite {
     return $self->{attackPower};
 }
 
+sub play_ball {
+    my $self = shift;
+    if ( $self->{energy} <= 5 && $self->{energy} <= 20 ) {
+        $self->{energy} = $self->{energy} + 5;
+    }
+}
+
 1;
