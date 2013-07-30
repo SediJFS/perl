@@ -21,4 +21,9 @@ sub play_kill {
     }
 }
 
+sub purr {
+    my $self = shift;
+    $self->{energy} = $self->{energy} * 2;
+    return $self->{energy};
+}
 1;
