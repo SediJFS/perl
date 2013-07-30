@@ -64,4 +64,13 @@ sub speak {
     return $name . " says " . $sound;
 }
 
+sub finish_him {
+    my $self = shift( @_ );
+    my $enemy = $_[0];
+    if ( $enemy->{energy} <= $self->{attackPower} ) {
+        $enemy->{energy} = 0;
+        return 'you finished him!';
+    }
+}
+
 1;
