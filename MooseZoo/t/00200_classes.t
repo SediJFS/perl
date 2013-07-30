@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More tests => 22;
 use lib '..';
 
 use Zoo::Animal;
@@ -56,6 +56,9 @@ can_ok( $doggy, 'check_state' );
 can_ok( $doggyKlein, 'check_state' );
 can_ok( $kitty, 'check_state' );
 
-# Dog Klassenmethode play_ball testen
+# Dog Klassenmethode 'play_ball' testen
 can_ok( $doggy, 'play_ball' );
 can_ok( $doggyKlein, 'play_ball' );
+
+# Cat Klassemmethode 'play_kill' testen
+can_ok( $kitty, 'play_kill' );

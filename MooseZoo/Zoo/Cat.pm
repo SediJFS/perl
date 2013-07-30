@@ -13,4 +13,11 @@ sub claw{
     return $self->{attackPower};
 }
 
+sub play_kill {
+    my $self = shift;
+    if ( $self->{energy} <= 5 && $self->{energy} <= 20 ) {
+        $self->{energy} = $self->{energy} + 4;
+    }
+}
+
 1;
