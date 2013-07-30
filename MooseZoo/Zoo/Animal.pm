@@ -8,10 +8,12 @@ use Log::Log4perl qw( :easy );
 Log::Log4perl->easy_init( $DEBUG );
 
 # Klassenattribute
-has 'name'          => ( is => 'rw', isa => 'Str', required => 1 );
-has 'attackPower'   => ( is => 'rw', isa => 'Int', default => 5 );
-has 'fainted'         => ( is => 'rw', isa => 'Bool', default => 0 );
-has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0 );
+has 'name'          => ( is => 'rw', isa => 'Str' ,                required => 1 );
+has 'attackPower'   => ( is => 'rw', isa => 'Int' , default => 5                 );
+has 'energy'        => ( is => 'rw', isa => 'Int' , default => 10, required => 1 );
+# Attribute für Flags
+has 'fainted'       => ( is => 'rw', isa => 'Bool', default => 0                 );
+has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0                 );
 
 # Klassenmethoden
 sub fight {
@@ -36,12 +38,12 @@ sub fight {
     }
 }
 
-sub faint {
+sub check_energy {
     my $self = shift;
-    if ( $self->{fainted} == 0 ) {
-        return 0;
+    if ( $self->{energy} <= 0 ) {
+        $self->{fainted} == 1;
     } else {
-        return 1;
+        $self->{fainted} == 0;
     }
 }
 
