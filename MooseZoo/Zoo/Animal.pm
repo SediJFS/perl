@@ -18,22 +18,22 @@ has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0                
 # Klassenmethoden
 sub fight {
     my $self = shift( @_ );
-    my $fainted = 0;
-    
-    if ( $fainted == 1 ) {
-        return 'enemy fainted';
+    my $enemy = $_[0];
+    if ( $self->{fainted} == 1 ) {
+        return $self->{name} . ' fainted';
+    } elsif ( $enemy->{fainted} == 1 ) {
+        return $enemy->{name} . ' fainted';
     } else {
         my $enemyAttack = $_[0]->{attackPower};
         my $selfAttack = $self->{attackPower};
         if ( $enemyAttack > $selfAttack ) {
-            $self->{fainted} = 1;
-            return $_[0]->{name};
+            $self->{energy} = $self->{energy} - 1;
+            return $self->{energy};
         } elsif ( $enemyAttack == $selfAttack ) {
-            return 'draw';
+            return $self->{energy};
         }else {
-            $_[0]->{fainted} = 1;
-            $self->{lastWin} = 1;
-            return $self;
+            $enemy->{energy} = $enemy->{energy} - 1;
+            return $self->{energy};
         }
     }
 }
@@ -42,8 +42,6 @@ sub check_energy {
     my $self = shift;
     if ( $self->{energy} <= 0 ) {
         $self->{fainted} == 1;
-    } else {
-        $self->{fainted} == 0;
     }
 }
 
