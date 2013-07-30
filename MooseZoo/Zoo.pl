@@ -25,7 +25,6 @@ until ( $muecke->{energy} == 0 or $doggy->{energy} == 0 ) {
     my $enemyApAfterRound = $doggy->{energy};
     print "AP " . $doggy->{name} . ': ' . $ownApAfterRound . "\n";
     print "AP " . $muecke->{name} . ': ' . $enemyApAfterRound . "\n";
-    $muecke->fight($doggy);
 }
 if ( $muecke->{energy} == 0 ) {
     print "--------------------\n" . $doggy->{name} . " won the fight\n";

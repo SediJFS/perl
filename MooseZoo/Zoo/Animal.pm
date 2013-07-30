@@ -20,9 +20,9 @@ sub fight {
     my $self = shift( @_ );
     my $enemy = $_[0];
     if ( $self->{energy} <= 0 ) {
-        return $self->{name} . ' fainted';
+        return $self->speak . '\n' . $self->{name} . ' fainted';
     } elsif ( $enemy->{energy} <= 0 ) {
-        return $enemy->{name} . ' fainted';
+        return $enemy->speak . '\n' . $enemy->{name} . ' fainted';
     } else {
         my $enemyAttack = $_[0]->{attackPower};
         my $selfAttack = $self->{attackPower};
