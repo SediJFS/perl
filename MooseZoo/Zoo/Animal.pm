@@ -19,20 +19,23 @@ has 'lastWin'       => ( is => 'rw', isa => 'Bool', default => 0                
 sub fight {
     my $self = shift( @_ );
     my $enemy = $_[0];
+
     if ( $self->{energy} <= 0 ) {
         return $self->speak . '\n' . $self->{name} . ' fainted';
     } elsif ( $enemy->{energy} <= 0 ) {
         return $enemy->speak . '\n' . $enemy->{name} . ' fainted';
     } else {
+
         my $enemyAttack = $_[0]->{attackPower};
         my $selfAttack = $self->{attackPower};
+
         if ( $enemyAttack > $selfAttack ) {
-            $self->{energy} = $self->{energy} - 1;
+            $self->{energy} = $self->{energy} - ( $enemy->{attackPower} / 2 );
             return $self->{energy};
         } elsif ( $enemyAttack == $selfAttack ) {
             return $self->{energy};
-        }else {
-            $enemy->{energy} = $enemy->{energy} - 1;
+        } else {
+            $enemy->{energy} = $enemy->{energy} - ( $self->{attackPower} / 2 );
             return $self->{energy};
         }
     }

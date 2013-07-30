@@ -1,4 +1,5 @@
 package Dog;
+use strict;
 
 use Moose;
 

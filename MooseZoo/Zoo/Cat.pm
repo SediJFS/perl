@@ -1,5 +1,6 @@
 package Cat;
 use strict;
+
 use Moose;
 
 extends 'Animal';
