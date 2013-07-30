@@ -19,15 +19,21 @@ print $doggy->speak() . "\n";
 my $muecke = Dog->new( name => 'Muecke', sound => 'Fiepfiep', attackPower => 5 );
 print $muecke->speak() . "\n";
 
-until ( $muecke->{energy} == 0 or $doggy->{energy} == 0 ) {
+my $ownApAfterRound = $muecke->{energy};
+my $enemyApAfterRound = $doggy->{energy};
+until ( $muecke->{energy} <= 0 || $doggy->{energy} <= 0 ) {
     print "--------------------\n";
-    my $ownApAfterRound = $muecke->{energy};
-    my $enemyApAfterRound = $doggy->{energy};
+    $muecke->fight($doggy);
+    $doggy->fight($muecke);
     print "AP " . $doggy->{name} . ': ' . $ownApAfterRound . "\n";
     print "AP " . $muecke->{name} . ': ' . $enemyApAfterRound . "\n";
 }
-if ( $muecke->{energy} == 0 ) {
+if ( $ownApAfterRound <= 0 ) {
     print "--------------------\n" . $doggy->{name} . " won the fight\n";
+    print "Final energy " . $doggy->{name} . ": " . $doggy->{energy} . "\n";
+    print "Final energy " . $muecke->{name} . ": " . $muecke->{energy} . "\n";
 } else {
     print "--------------------\n" . $muecke->{name} . " won the fight\n";
+    print "Final energy " . $muecke->{name} . ": " . $muecke->{energy} . "\n";
+    print "Final energy " . $doggy->{name} . ": " . $doggy->{energy} . "\n";
 }
