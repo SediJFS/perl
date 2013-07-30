@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 19;
 use lib '..';
 
 use Zoo::Animal;
@@ -35,3 +35,11 @@ my $kitty = Cat->new( name => 'Fritzi' );
 is( $kitty->{name}, 'Fritzi', 'kitty is named Fritzi' );
 can_ok( $kitty, 'speak' );
 can_ok( $kitty, 'claw' );
+
+can_ok( $doggy, 'faint' );
+can_ok( $doggyKlein, 'faint' );
+can_ok( $kitty, 'faint' );
+
+can_ok( $doggy, 'check_state' );
+can_ok( $doggyKlein, 'check_state' );
+can_ok( $kitty, 'check_state' );
