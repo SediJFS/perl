@@ -2,20 +2,15 @@
 
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More tests => 4;
 use lib '..';
 
 use Zoo::Animal;
 use Zoo::Dog;
 
+# werden die Module geladen
+note( "Modulzugriff testen" );
 use_ok( 'Zoo::Animal' ) or exit;
 use_ok( 'Zoo::Dog' ) or exit;
 use_ok( 'Zoo::Cat' ) or exit;
-
-my $Tierchen = Animal->new( name => 'Ally' );
-my $doggy = Dog->new( name => 'Lassie' );
-my $kitty = Cat->new( name => 'Fritzi' );
-
-isa_ok( $Tierchen, 'Animal' );
-isa_ok( $doggy, 'Dog' );
-isa_ok( $kitty, 'Cat' );
+use_ok( 'Zoo::Monkey' ) or exit;

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo "--------------------------------"
+echo "Starting to run MooseZoo tests"
+echo "--------------------------------"
+
+prove -v t/00100_prerequisites.t
+prove -v t/00200_classes.t
+prove -v t/00300_classMethods.t

@@ -2,64 +2,32 @@
 
 use strict;
 use warnings;
-use Test::More tests => 23;
+use Test::More tests => 10;
 use lib '..';
 
 use Zoo::Animal;
 use Zoo::Dog;
 use Zoo::Cat;
+use Zoo::Monkey;
 
-# Allgemeines Animal 'Tierchen' anlegen (Animal ist später nicht von Hand aufzurufen)
-my $Tierchen = Animal->new( name => 'Ally' );
-
-# Hat das Tierchen auch einen Namen?
-note( "Hat Tierchen einen Namen?" );
-is( $Tierchen->{name}, 'Ally', 'Animal is named Ally' );
-
-# kann das Tierchen kämpfen?
-note( "kann Tierchen kämpfen?");
-can_ok( $Tierchen, 'fight' );
+# Objekte anlegen (Animal soll später nicht verwendet werden sondern nur als Oberklasse dienen)
+note( "Objekte anlegen" );
+my $tierchen = Animal->new( name => 'Ally' );
 my $doggy = Dog->new( name => 'Lassie' );
-
-# ist unser Hund ein Objekt vom Typ 'Hund'?
-note( "ist unser Hund ein Hund?" );
-isa_ok( $doggy, 'Dog' );
-
-# hat unser Hund einen Namen und kann bellen?
-note( "hat unser Hund einen Namen und kann bellen?" );
-is ( $doggy->{sound}, 'Woof', 'doggy can bark' );
-is ( $doggy->{name}, 'Lassie', 'doggy is named Lassie' );
-can_ok( $doggy, 'speak' );
-
-# darf ich einen zweiten Hund anlegen?
-note( "darf ich einen zweiten Hund anlegen?" );
-my $doggyKlein = Dog->new( name => 'Muecke', sound => 'Fiepfiep' );
-isa_ok( $doggyKlein, 'Dog' );
-
-# wurde der intialsound geändert?
-note( "wurde der initialsound geändert?" );
-is ( $doggyKlein->{sound}, 'Fiepfiep', 'Muecke can say Fiepfiep' );
-can_ok( $doggyKlein, 'fight' );
-can_ok( $doggyKlein, 'bite' );
-note( "now we create Fritzi the Cat" );
 my $kitty = Cat->new( name => 'Fritzi' );
-is( $kitty->{name}, 'Fritzi', 'kitty is named Fritzi' );
-
-# Klassenmethoden testen
-note( "Klassenmethoden testen" );
-can_ok( $kitty, 'speak' );
-can_ok( $kitty, 'claw' );
-can_ok( $doggy, 'check_energy' );
-can_ok( $doggyKlein, 'check_energy' );
-can_ok( $kitty, 'check_energy' );
-can_ok( $doggy, 'check_state' );
-can_ok( $doggyKlein, 'check_state' );
-can_ok( $kitty, 'check_state' );
-
-# Dog Klassenmethode 'play_ball' testen
-can_ok( $doggy, 'play_ball' );
-can_ok( $doggyKlein, 'play_ball' );
-
-# Cat Klassemmethode 'play_kill' testen
-can_ok( $kitty, 'play_kill' );
-can_ok( $kitty, 'purr' );
+my $monkey = Monkey->new( name => 'Louis' );
+# Objekte testen
+isa_ok( $tierchen, 'Animal' );
+isa_ok( $doggy, 'Dog' );
+isa_ok( $kitty, 'Cat' );
+isa_ok( $monkey, 'Monkey' );
+# Objektattribute testen
+note( "Objektattribute testen" );
+note( "name" );
+is( $doggy->{name}, 'Lassie', '$doggy is named' );
+is( $kitty->{name}, 'Fritzi', '$kitty is named' );
+is( $monkey->{name}, 'Louis', '$monkey is named' );
+note( "attackPower" );
+is( $doggy->{attackPower}, 10, '$doggy has attackPower' );
+is( $kitty->{attackPower}, 12, '$kitty has attackPower' );
+is( $monkey->{attackPower}, 15, '$monkey has attackPower' );
