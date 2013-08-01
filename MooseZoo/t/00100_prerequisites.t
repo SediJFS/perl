@@ -2,11 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 4;
+use Test::More tests => 5;
 use lib '..';
 
 use Zoo::Animal;
 use Zoo::Dog;
+use Zoo::Cat;
+use Zoo::Monkey;
 
 # werden die Module geladen
 note( "Modulzugriff testen" );
