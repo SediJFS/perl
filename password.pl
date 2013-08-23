@@ -29,7 +29,7 @@ if (defined($laenge)) {
     my $password = join("", @chars[ map { rand @chars } ( 1..$laenge ) ] );
     print($password, "\n");
 } else {
-    print "Keine Passwortlänge angegeben! ( 8 bis 10 )\n";
+    print "Keine Passwortlänge angegeben!\n";
 }
 =pod
 
