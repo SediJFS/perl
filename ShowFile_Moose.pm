@@ -14,13 +14,20 @@ has 'file' => (
     required    => 1
 );
 
-sub open {
+#######################################################################
+# Subroutine zum Öffnen des Filehandles                               #
+# Bekommt Pfad zur Datei als Parameter                                #
+sub open {                                                            #
+#######################################################################
     my $fh = shift;
     open $fh, $fh->file or confess "cannot open";
     return $fh;
 }
 
-sub getlines {
+#######################################################################
+# Subroutine zum lesen des Dateiinhalts                               #
+sub getlines {                                                        #
+#######################################################################
     my $fh = shift;
     return readline $fh;
 }
