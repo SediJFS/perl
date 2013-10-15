@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+# Josef Florian Sedlmeier 2013
 
 package My::IO;
 
